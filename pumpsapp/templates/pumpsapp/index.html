@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Система орошения огорода</title>
+    <style>
+
+.groups{
+    display: flex;
+
+}
+
+.pumps {
+    display: flex;
+    align-items: center;
+
+    
+}
+
+/* Пример линий между клапанами */
+
+
+ #no1 {
+    width:190px;
+    height:200px;
+    border:1px solid #000;
+    background-color:#f6f6ff;
+    color:#000;
+    text-decoration:none;
+    margin-left:600px ;
+ }
+
+ .groupname{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:50px;
+    height:50px;
+    border:1px solid #000;
+    background-color:#f6f6ff;
+ }
+
+
+ /* Стили для зелёного круга */
+.green-circle {
+    width: 20px; /* Ширина круга */
+    height: 20px; /* Высота круга */
+    border-radius: 50%; /* Делает круглую форму */
+    background-color: green; /* Зелёный цвет */
+    display: inline-block; /* Размещение как блочный элемент */
+    margin-left: 5px; /* Расстояние между элементами */
+}
+
+/* Стили для красного круга */
+.red-circle {
+    width: 20px; /* Ширина круга */
+    height: 20px; /* Высота круга */
+    border-radius: 50%; /* Делает круглую форму */
+    background-color: red; /* Красный цвет */
+    display: inline-block; /* Размещение как блочный элемент */
+    margin-left: 5px; /* Расстояние между элементами */
+}
+
+
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <h1>Система орошения поля</h1>
+    </header>
+
+
+<div style="display: block; align-items: center;">
+    <div id="no1">
+
+    </div>
+
+    <div style="border-left:1px solid #000; height: 150px; margin-left: 690px;"></div>
+
+    
+        <div class="scheme">
+            <div class="groups" >
+                {% for group, data in groups_with_pumps.items %}
+                
+                    <div class="group" style="width: 250px;">
+                        <div class=".group-content" style="border-bottom:1px solid #000; width: 200px;"></div>
+                        <div class=".group-content" style="border-left:1px solid #000; height: 40px;"></div>
+                        <span class="groupname">{{ group }}</span>
+                        <div style="border-top:1px solid #000; width: 50px;"></div>
+                            {% for pump, status in data %}
+
+                                
+                                <div class="pumps">
+                                    <div style="border-left:1px solid #000; height: 40px;"></div>
+                                    <div style="border:1px solid #000; width: 50px;"></div>
+
+                                        <h5 >{{ pump }}  
+                                            {% if status.status.name == 'Yes' %}
+                                            <div class="green-circle"></div>
+                                        {% elif status.status.name == 'No' %}
+                                            <div class="red-circle"></div>
+                                        {% endif %}
+                                        
+                                </div>
+                                {{ status.last_updated }}
+                                        
+
+                            {% endfor %}
+
+    
+    
+    
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+</div>
+    
+
+    
+
+    <footer>
+        <p>&copy; 2023 Орошение огорода</p>
+    </footer>
+</body>
+</html>
