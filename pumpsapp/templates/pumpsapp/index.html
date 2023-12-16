@@ -5,6 +5,12 @@
     <title>Система орошения огорода</title>
     <style>
 
+        .main{
+            display: block; 
+            align-items: center; 
+            background-position: center;
+        }
+
         .groups{
             display: flex;
 
@@ -64,6 +70,112 @@
             margin-left: 5px; /* Расстояние между элементами */
         }
 
+        .main-pump {
+            background: url('/static/pngwingco.png') center/contain no-repeat; 
+            height: 170px; 
+            padding: 10px;
+        }
+
+        .second-pump {
+            background: url('/static/pngwingcommm.png') no-repeat; 
+            background-size: contain;
+            background-position: left;
+            padding: 10px; 
+            height: 40px; 
+            width: 270px; 
+            margin-left: -40px; 
+            margin-top: -15px;
+        }
+
+        .third-pump {
+            background: url('/static/pngwingco.png') left/contain no-repeat; 
+            width: 200px; 
+            height: 157px; 
+            margin-top: -8px;
+        }
+
+        .fourth-pump {
+            background: url('/static/pngwing.png') no-repeat; 
+            background-size: contain; 
+            background-position: center;  
+            height: 150px; 
+            width: 114px; 
+            margin-top:-10px; 
+            margin-left: -25px;
+        }
+
+        .fifth-pump {
+            background: url('/static/pngwingc.png') no-repeat; 
+            background-size: contain; 
+            background-position: center; 
+            height: 40px;
+            width: 200px;
+            margin-left: -30px;
+        }
+
+        .group {
+            width:250px;
+        }
+
+        /* Стили для устройств с шириной экрана от 601px до 1200px */
+        @media screen and (min-width: 601px) and (max-width: 1200px) {
+            .main {
+                width:1000px;
+            }
+
+            #no1 {
+                width: 150px;
+                height: 160px;
+                border: 1px solid #000;
+                background-color: #f6f6ff;
+                color: #000;
+                text-decoration: none;
+                background-position: center;
+                position: relative;
+                left: 43%;
+            }
+
+            .main-pump {
+                background: url('/static/pngwingco.png') center/contain no-repeat; 
+                height: 130px; 
+                padding: 10px;
+            }
+
+            .second-pump {
+                background: url(/static/pngwingcommm.png) no-repeat;
+                background-size: contain;
+                margin: -10px 0 0 -31px;
+                height: 20px;
+            }
+
+            .third-pump {
+                background: url('/static/pngwingco.png') left/contain no-repeat; 
+                width: 200px; 
+                height: 120px; 
+                margin-top: -8px;
+                margin-left: -2px;
+            }
+            .fourth-pump {
+                background: url('/static/pngwing.png') no-repeat; 
+                background-size: contain; 
+                background-position: center;  
+                height: 150px;
+                width: 84px;
+            }
+
+            .fifth-pump {
+                background: url('/static/pngwingc.png') no-repeat; 
+                background-size: contain; 
+                background-position: center; 
+                height: 27px;
+                width: 127px;
+            }
+
+            .group{
+                width:170px;
+            }
+        }
+
 
 
     </style>
@@ -77,21 +189,21 @@
     </header>
 
 
-<div style="display: block; align-items: center; background-position: center;">
+<div class="main" >
     <div id="no1">
 
     </div>
 
-    <div style="background: url('/static/pngwingco.png') no-repeat; background-size: contain; background-position: center; height: 170px;  padding: 10px;"></div>
+    <div style="" class="main-pump"></div>
 
     
         <div class="scheme">
             <div class="groups" >
                 {% for group, data in groups_with_pumps.items %}
                 
-                    <div class="group" style="width: 250px;">
-                        <div class=".group-content" style="background: url('/static/pngwingcommm.png') no-repeat; background-size: contain; background-position: left; padding:10px;height: 40px; width:270px; margin-left:-40px; margin-top:-15px;"></div>
-                        <div class=".group-content" style="background: url('/static/pngwingco.png') no-repeat; background-size: contain; background-position: left; width: 200px; height:157px; margin-top:-8px;"></div>
+                    <div class="group">
+                        <div class="group-content second-pump" style="" class=""></div>
+                        <div class="group-content third-pump" style=""></div>
                         <span class="groupname">{{ group }}</span>
                         <div style="border-top:1px solid #000; width: 50px;"></div>
                             {% for pump, status in data %}
@@ -99,19 +211,21 @@
                                 
                             <div class="pumps">
 
-                                <div style="background: url('/static/pngwing.png') no-repeat; background-size: contain; background-position: center;  height: 150px; width: 114px; margin-top:-10px; margin-left: -25px;"></div>
-                                <div style="background: url('/static/pngwingc.png') no-repeat; background-size: contain; background-position: center; height: 40px;width: 200px;margin-left: -30px;">
-                                    <div style="margin-top:-20px; margin-left:15px ">{{ status.last_updated|date:"H:i d.m.Y" }}</div>
+                                <div class="fourth-pump" style=""></div>
+                                <div class="fifth-pump">
+                                    <div style="display: flex;flex-direction:column;margin-top:-20px; margin-left:15px ">
+                                        {{ status.last_updated|date:"H:i d.m.Y" }}
+                                            <h5 style="    margin: 30px 0 0 0;">{{ pump }}  
+                                            {% if status.status.name == 'Yes' %}
+                                                <div class="green-circle"></div>
+                                            {% elif status.status.name == 'No' %}
+                                                <div class="red-circle"></div>
+                                            {% endif %}
+                                            </h5>
+                                    </div>
                                 </div>
 
-
-                                        <h5 >{{ pump }}  </h5>
-                                            {% if status.status.name == 'Yes' %}
-                                            <div class="green-circle"></div>
-                                        {% elif status.status.name == 'No' %}
-                                            <div class="red-circle"></div>
-                                        {% endif %}
-                                    </div>
+                            </div>
                                 
                                         
 
